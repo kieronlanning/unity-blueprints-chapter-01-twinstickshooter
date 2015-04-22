@@ -33,6 +33,9 @@ public class PlayerBehaviour : MonoBehaviour
     public List<KeyCode> leftButton;
     public List<KeyCode> rightButton;
 
+    // What sound to play when we're shooting.
+    public AudioClip shootSound;
+
     // The last movement that we've made.
     Vector3 lastMovement = new Vector3();
 
@@ -61,6 +64,8 @@ public class PlayerBehaviour : MonoBehaviour
     // Creates a laser and gives it an inital position in front of the ship.
     void ShootLaser()
     {
+        GetComponent<AudioSource>().PlayOneShot(shootSound);
+
         // Calculate the position right in front of the ship's
         // position - laserDistance away from the ship.
         float posX = this.transform.position.x +

@@ -14,6 +14,12 @@ public class GameController : MonoBehaviour
 
     int currentNumberOfEnemies = 0;
 
+    // Allows classes outside of GameController to say when we kill an enemy.
+    public void KilledEnemy()
+    {
+        currentNumberOfEnemies--;
+    }
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -30,14 +36,40 @@ public class GameController : MonoBehaviour
         while (true)
         {
             // Don't spawn anything new until all the previous wave's enemies are dead.
-            if (currentNumberOfEnemies == 0)
+            if (currentNumberOfEnemies <= 0)
             {
-                float randDirection;
-                float randDistance;
-
                 // Spawn 10 enemies in a random position.
+                for (var i = 0; i < enemiesPerWave; i++)
+                {
+                    // We want the enemies to be off screen
+                    // (Random.Range gives us a number between
+                    // the first and second parameters)
+                    var randDistance = Random.Range(10, 25);
 
+                    // Enemies can come from any direction.
+                    var randDirection = Random.Range(0, 360);
+
+                    // Using the distance and direction we set the position.
+                    var posX = transform.position.x
+                               + (Mathf.Cos(randDirection*Mathf.Deg2Rad)*randDistance);
+                    var posY = transform.position.y
+                               + (Mathf.Sin(randDirection*Mathf.Deg2Rad)*randDistance);
+
+                    // Spawn the enemy and increment the number of enemies spawned.
+
+                    // Spawn the enemy and increment the number of enemies spawned.
+                    // Instansiate makes a clone of the first parameter and
+                    // places it at the second with a rotation of the third.
+                    Instantiate(enemy, new Vector3(posX, posY, 0), transform.rotation);
+
+                    currentNumberOfEnemies++;
+
+                    yield return  new WaitForSeconds(timeBetweenEnemies);
+                }
             }
+
+            // How much time to wait before checking if we need to spanwn another way.
+            yield return new WaitForSeconds(timeBeforeWaves);
         }
     }
 
