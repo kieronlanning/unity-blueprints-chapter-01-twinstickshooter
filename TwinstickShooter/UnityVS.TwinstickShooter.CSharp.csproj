@@ -65,5 +65,8 @@
     <Compile Include="Assets\Scripts\MoveTowardPlayer.cs" />
     <Compile Include="Assets\Scripts\PlayerBehaviour.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Font\SIL Open Font License.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

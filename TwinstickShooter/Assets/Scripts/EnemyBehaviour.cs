@@ -36,6 +36,7 @@ public class EnemyBehaviour : MonoBehaviour {
                 .GetComponent("GameController");
 
             controller.KilledEnemy();
+            controller.IncreaseScore(10);
         }
 
         if (health <= 0)

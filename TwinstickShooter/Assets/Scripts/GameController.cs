@@ -14,6 +14,20 @@ public class GameController : MonoBehaviour
 
     int currentNumberOfEnemies = 0;
 
+    // The values we'll be printing.
+    int score = 0;
+    int waveNumber = 0;
+
+    // The GUI Text game objects.
+    public GUIText scoreText;
+    public GUIText waveText;
+
+    public void IncreaseScore(int value)
+    {
+        score += value;
+        scoreText.text = "Score: " + score;
+    }
+
     // Allows classes outside of GameController to say when we kill an enemy.
     public void KilledEnemy()
     {
@@ -38,6 +52,8 @@ public class GameController : MonoBehaviour
             // Don't spawn anything new until all the previous wave's enemies are dead.
             if (currentNumberOfEnemies <= 0)
             {
+                waveText.text = "Wave: " + ++waveNumber;
+
                 // Spawn 10 enemies in a random position.
                 for (var i = 0; i < enemiesPerWave; i++)
                 {
